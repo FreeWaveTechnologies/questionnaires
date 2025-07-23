@@ -1,0 +1,1978 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engineering Team Transition Questionnaire</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.2em;
+        margin-bottom: 10px;
+        font-weight: 300;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 1.1em;
+      }
+
+      .tabs {
+        display: flex;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        overflow-x: auto;
+      }
+
+      .tab {
+        flex: 1;
+        min-width: 150px;
+        padding: 15px 10px;
+        text-align: center;
+        background-color: #e9ecef;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: #495057;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .tab:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #3498db;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .tab:hover {
+        background-color: #dee2e6;
+      }
+
+      .tab.active {
+        background-color: #3498db;
+        color: white;
+      }
+
+      .tab.active:before {
+        transform: scaleX(1);
+      }
+
+      .tab-content {
+        display: none;
+        padding: 40px;
+        min-height: 500px;
+      }
+
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.3s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .question-label {
+        display: block;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        font-size: 1.05em;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background-color: #fff;
+      }
+
+      input[type="text"]:focus,
+      input[type="date"]:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+      }
+
+      .checkbox-group,
+      .radio-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .checkbox-item,
+      .radio-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        transition: background-color 0.2s ease;
+      }
+
+      .checkbox-item:hover,
+      .radio-item:hover {
+        background-color: #e9ecef;
+      }
+
+      .checkbox-item input[type="checkbox"],
+      .checkbox-item input[type="radio"],
+      .radio-item input[type="checkbox"],
+      .radio-item input[type="radio"] {
+        width: auto;
+        margin: 0;
+        transform: scale(1.2);
+      }
+
+      .checkbox-item label,
+      .radio-item label {
+        font-weight: 500;
+        cursor: pointer;
+        margin: 0;
+      }
+
+      .header-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+
+      .navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background-color: #545b62;
+        transform: translateY(-2px);
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, #27ae60 0%, #219a52 100%);
+        color: white;
+        font-size: 16px;
+        padding: 15px 30px;
+      }
+
+      .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+      }
+
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none !important;
+      }
+
+      .progress-bar {
+        height: 4px;
+        background-color: #e9ecef;
+        margin-bottom: 20px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #3498db, #2980b9);
+        transition: width 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .section-title {
+        color: #2c3e50;
+        font-size: 1.8em;
+        margin-bottom: 10px;
+        font-weight: 300;
+      }
+
+      .section-description {
+        color: #7f8c8d;
+        margin-bottom: 30px;
+        font-size: 1.1em;
+      }
+
+      .purpose-box {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d6eaf8 100%);
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #3498db;
+        margin-bottom: 30px;
+      }
+
+      .instructions-box {
+        background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #27ae60;
+        margin-top: 30px;
+      }
+
+      .completion-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 25px;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 10px;
+          border-radius: 10px;
+        }
+
+        .tabs {
+          flex-wrap: wrap;
+        }
+
+        .tab {
+          min-width: 120px;
+          font-size: 12px;
+          padding: 12px 8px;
+        }
+
+        .tab-content {
+          padding: 20px;
+        }
+
+        .checkbox-group,
+        .radio-group {
+          grid-template-columns: 1fr;
+        }
+
+        .header-info {
+          grid-template-columns: 1fr;
+        }
+
+        .navigation-buttons {
+          flex-direction: column;
+          gap: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Engineering Team Transition Questionnaire</h1>
+        <p>Building better working relationships through understanding</p>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showTab(0)">Basic Info</button>
+        <button class="tab" onclick="showTab(1)">Motivation</button>
+        <button class="tab" onclick="showTab(2)">Team Dynamics</button>
+        <button class="tab" onclick="showTab(3)">Company</button>
+        <button class="tab" onclick="showTab(4)">Personal</button>
+        <button class="tab" onclick="showTab(5)">Management</button>
+        <button class="tab" onclick="showTab(6)">Goals</button>
+        <button class="tab" onclick="showTab(7)">Complete</button>
+      </div>
+
+      <form id="transitionForm">
+        <!-- Tab 0: Basic Information -->
+        <div class="tab-content active">
+          <h2 class="section-title">Basic Information</h2>
+          <p class="section-description">
+            Let's start with some basic details about you and your role.
+          </p>
+
+          <div class="header-info">
+            <div class="form-group">
+              <label class="question-label" for="employeeName"
+                >Employee Name *</label
+              >
+              <input
+                type="text"
+                id="employeeName"
+                name="employeeName"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="question-label" for="date">Date *</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+            <div class="form-group">
+              <label class="question-label" for="department">Department</label>
+              <input
+                type="text"
+                id="department"
+                name="department"
+                value="Engineering"
+              />
+            </div>
+            <div class="form-group">
+              <label class="question-label" for="newManager">New Manager</label>
+              <input
+                type="text"
+                id="newManager"
+                name="newManager"
+                value="Richard Reisbick"
+              />
+            </div>
+          </div>
+
+          <div class="purpose-box">
+            <strong>Purpose:</strong> This questionnaire helps your new manager
+            understand you better as both an engineer and team member. Your
+            responses will guide discussions about your career development, work
+            preferences, and how to create the best working relationship moving
+            forward.
+          </div>
+
+          <div class="navigation-buttons">
+            <div></div>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Next: Motivation & Work Style →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 1: Motivation & Work Style -->
+        <div class="tab-content">
+          <h2 class="section-title">Motivation & Work Style</h2>
+          <p class="section-description">
+            Help us understand what drives you and how you prefer to work.
+          </p>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What type of work or projects get you most excited?</label
+            >
+            <textarea name="excitingWork" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What motivates you to do your best work?</label
+            >
+            <textarea name="motivation" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >When do you feel most productive and engaged?</label
+            >
+            <textarea name="productive" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Do you prefer working independently or collaboratively?</label
+            >
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="independent"
+                  name="workStyle"
+                  value="independent"
+                />
+                <label for="independent">Independently</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="collaborative"
+                  name="workStyle"
+                  value="collaborative"
+                />
+                <label for="collaborative">Collaboratively</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="mixBoth" name="workStyle" value="mix" />
+                <label for="mixBoth">Mix of both</label>
+              </div>
+            </div>
+            <textarea
+              name="workStyleExplain"
+              rows="2"
+              placeholder="Explain your preference..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you like to receive feedback and how often?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="daily"
+                  name="feedbackFreq"
+                  value="daily"
+                />
+                <label for="daily">Daily</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="weekly"
+                  name="feedbackFreq"
+                  value="weekly"
+                />
+                <label for="weekly">Weekly</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="biweekly"
+                  name="feedbackFreq"
+                  value="biweekly"
+                />
+                <label for="biweekly">Bi-weekly</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="monthly"
+                  name="feedbackFreq"
+                  value="monthly"
+                />
+                <label for="monthly">Monthly</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="asNeeded"
+                  name="feedbackFreq"
+                  value="asNeeded"
+                />
+                <label for="asNeeded">As needed</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Preferred feedback style (select all that apply):</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="direct"
+                  name="feedbackStyle"
+                  value="direct"
+                />
+                <label for="direct">Direct and specific</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="constructive"
+                  name="feedbackStyle"
+                  value="constructive"
+                />
+                <label for="constructive">Constructive with examples</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="written"
+                  name="feedbackStyle"
+                  value="written"
+                />
+                <label for="written">Written</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="verbal"
+                  name="feedbackStyle"
+                  value="verbal"
+                />
+                <label for="verbal">Verbal</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="inPerson"
+                  name="feedbackStyle"
+                  value="inPerson"
+                />
+                <label for="inPerson">In person</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="email"
+                  name="feedbackStyle"
+                  value="email"
+                />
+                <label for="email">Via email/chat</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What's your preferred communication style?</label
+            >
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="directComm"
+                  name="commStyle"
+                  value="direct"
+                />
+                <label for="directComm">Direct</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="detailed"
+                  name="commStyle"
+                  value="detailed"
+                />
+                <label for="detailed">Detailed</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="highLevel"
+                  name="commStyle"
+                  value="highLevel"
+                />
+                <label for="highLevel">High-level</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="visual"
+                  name="commStyle"
+                  value="visual"
+                />
+                <label for="visual">Visual/diagrams</label>
+              </div>
+            </div>
+            <input
+              type="text"
+              name="commStyleOther"
+              placeholder="Other (please specify)..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Do you prefer structured tasks or open-ended
+              problem-solving?</label
+            >
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="structured"
+                  name="taskType"
+                  value="structured"
+                />
+                <label for="structured">Structured tasks</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="openEnded"
+                  name="taskType"
+                  value="openEnded"
+                />
+                <label for="openEnded">Open-ended problems</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="mixTasks" name="taskType" value="mix" />
+                <label for="mixTasks">Mix of both</label>
+              </div>
+            </div>
+            <textarea
+              name="taskTypeDetails"
+              rows="2"
+              placeholder="Additional details..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you prefer to learn new skills or technologies?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="handsOn"
+                  name="learningStyle"
+                  value="handsOn"
+                />
+                <label for="handsOn">Hands-on practice</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="documentation"
+                  name="learningStyle"
+                  value="documentation"
+                />
+                <label for="documentation">Documentation/reading</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="videos"
+                  name="learningStyle"
+                  value="videos"
+                />
+                <label for="videos">Video tutorials</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="mentoring"
+                  name="learningStyle"
+                  value="mentoring"
+                />
+                <label for="mentoring">Mentoring</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="courses"
+                  name="learningStyle"
+                  value="courses"
+                />
+                <label for="courses">Courses</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="conferences"
+                  name="learningStyle"
+                  value="conferences"
+                />
+                <label for="conferences">Conferences</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What professional development opportunities interest you
+              most?</label
+            >
+            <textarea name="profDev" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any conferences, courses, or certifications you'd like
+              to pursue?</label
+            >
+            <textarea name="certifications" rows="3"></textarea>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Next: Team Dynamics →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Team Dynamics -->
+        <div class="tab-content">
+          <h2 class="section-title">Team Dynamics</h2>
+          <p class="section-description">
+            Tell us about your experience with team collaboration and
+            communication.
+          </p>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What do you appreciate most about working with this team?</label
+            >
+            <textarea name="teamAppreciate" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What aspects of team collaboration work well for you?</label
+            >
+            <textarea name="teamCollaboration" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any team processes or dynamics that frustrate
+              you?</label
+            >
+            <textarea name="teamFrustrations" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you prefer to collaborate on projects?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="pairProg"
+                  name="collaboration"
+                  value="pairProg"
+                />
+                <label for="pairProg">Pair programming</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="codeReviews"
+                  name="collaboration"
+                  value="codeReviews"
+                />
+                <label for="codeReviews">Code reviews</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="regularCheckins"
+                  name="collaboration"
+                  value="regularCheckins"
+                />
+                <label for="regularCheckins">Regular check-ins</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="asyncComm"
+                  name="collaboration"
+                  value="asyncComm"
+                />
+                <label for="asyncComm">Async communication</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="sharedDocs"
+                  name="collaboration"
+                  value="sharedDocs"
+                />
+                <label for="sharedDocs">Shared documents</label>
+              </div>
+            </div>
+            <textarea
+              name="collaborationOther"
+              rows="2"
+              placeholder="Other preferences..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What makes meetings valuable vs. wasteful for you?</label
+            >
+            <textarea
+              name="valuableMeetings"
+              rows="2"
+              placeholder="Valuable meetings have..."
+            ></textarea>
+            <textarea
+              name="wastefulMeetings"
+              rows="2"
+              placeholder="Wasteful meetings have..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you like to stay informed about team progress and
+              decisions?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="standups"
+                  name="stayInformed"
+                  value="standups"
+                />
+                <label for="standups">Daily standups</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="weeklyUpdates"
+                  name="stayInformed"
+                  value="weeklyUpdates"
+                />
+                <label for="weeklyUpdates">Weekly updates</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="slackChat"
+                  name="stayInformed"
+                  value="slackChat"
+                />
+                <label for="slackChat">Slack/chat</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="emailSummaries"
+                  name="stayInformed"
+                  value="emailSummaries"
+                />
+                <label for="emailSummaries">Email summaries</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="pmTools"
+                  name="stayInformed"
+                  value="pmTools"
+                />
+                <label for="pmTools">Project management tools</label>
+              </div>
+            </div>
+            <textarea
+              name="stayInformedOther"
+              rows="2"
+              placeholder="Additional preferences..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >If you could change one thing about how the team works together,
+              what would it be?</label
+            >
+            <textarea name="teamChange" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What team traditions or practices should we definitely
+              keep?</label
+            >
+            <textarea name="teamKeep" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any skills or perspectives you think the team is
+              missing?</label
+            >
+            <textarea name="teamMissing" rows="3"></textarea>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Next: Company & Organization →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 3: Company & Organizational Dynamics -->
+        <div class="tab-content">
+          <h2 class="section-title">Company & Organizational Dynamics</h2>
+          <p class="section-description">
+            Share your thoughts about the company culture and cross-team
+            interactions.
+          </p>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What aspects of the company culture do you value most?</label
+            >
+            <textarea name="companyCulture" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What company policies or practices work well for you?</label
+            >
+            <textarea name="companyPolicies" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there organizational changes you'd like to see?</label
+            >
+            <textarea name="orgChanges" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you typically interact with other teams (Product, Design,
+              QA, etc.)?</label
+            >
+            <textarea name="crossTeamInteraction" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What cross-functional relationships work well for you?</label
+            >
+            <textarea name="crossFunctionalGood" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any organizational silos or friction points that impact
+              your work?</label
+            >
+            <textarea name="orgFriction" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Do you feel you have the tools and resources needed to do your
+              job effectively?</label
+            >
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="resourcesYes"
+                  name="resources"
+                  value="yes"
+                />
+                <label for="resourcesYes">Yes</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="resourcesMostly"
+                  name="resources"
+                  value="mostly"
+                />
+                <label for="resourcesMostly">Mostly</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="resourcesSomewhat"
+                  name="resources"
+                  value="somewhat"
+                />
+                <label for="resourcesSomewhat">Somewhat</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="resourcesNo"
+                  name="resources"
+                  value="no"
+                />
+                <label for="resourcesNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What additional support would help you be more successful?</label
+            >
+            <textarea name="additionalSupport" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How satisfied are you with current development processes and
+              infrastructure?</label
+            >
+            <select name="devProcessSatisfaction">
+              <option value="">Select...</option>
+              <option value="verySatisfied">Very satisfied</option>
+              <option value="satisfied">Satisfied</option>
+              <option value="neutral">Neutral</option>
+              <option value="dissatisfied">Dissatisfied</option>
+              <option value="veryDissatisfied">Very dissatisfied</option>
+            </select>
+            <textarea
+              name="devProcessComments"
+              rows="2"
+              placeholder="Comments..."
+            ></textarea>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Next: Personal Interests →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 4: Personal Interests & Work-Life Balance -->
+        <div class="tab-content">
+          <h2 class="section-title">Personal Interests & Work-Life Balance</h2>
+          <p class="section-description">
+            Help us understand you as a whole person, not just an engineer.
+          </p>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What do you enjoy doing outside of work?</label
+            >
+            <textarea name="personalInterests" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any personal interests that relate to your professional
+              work?</label
+            >
+            <textarea name="relatedInterests" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What helps you recharge and maintain work-life balance?</label
+            >
+            <textarea name="workLifeBalance" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Do you prefer working remotely, in-office, or hybrid?</label
+            >
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="remote"
+                  name="workLocation"
+                  value="remote"
+                />
+                <label for="remote">Remote</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="inOffice"
+                  name="workLocation"
+                  value="inOffice"
+                />
+                <label for="inOffice">In-office</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="hybrid"
+                  name="workLocation"
+                  value="hybrid"
+                />
+                <label for="hybrid">Hybrid</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="flexible"
+                  name="workLocation"
+                  value="flexible"
+                />
+                <label for="flexible">Flexible/varies</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What does your ideal work environment look like?</label
+            >
+            <textarea name="idealEnvironment" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any accommodations that help you work more
+              effectively?</label
+            >
+            <textarea name="accommodations" rows="3"></textarea>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Next: Management Preferences →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 5: Management & Support Preferences -->
+        <div class="tab-content">
+          <h2 class="section-title">Management & Support Preferences</h2>
+          <p class="section-description">
+            Tell us how you like to be managed and supported in your role.
+          </p>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What management styles have worked best for you in the
+              past?</label
+            >
+            <textarea name="managementStyles" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What did your previous manager do that you found most
+              helpful?</label
+            >
+            <textarea name="previousManagerGood" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there management approaches that don't work well for
+              you?</label
+            >
+            <textarea name="managementDislikes" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How can I best support your day-to-day work?</label
+            >
+            <textarea name="dailySupport" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What would you want me to focus on in our 1:1 meetings?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="projectUpdates"
+                  name="oneOnOneFocus"
+                  value="projectUpdates"
+                />
+                <label for="projectUpdates">Project updates</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="careerDev"
+                  name="oneOnOneFocus"
+                  value="careerDev"
+                />
+                <label for="careerDev">Career development</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="blockers"
+                  name="oneOnOneFocus"
+                  value="blockers"
+                />
+                <label for="blockers">Blockers/challenges</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="feedbackFocus"
+                  name="oneOnOneFocus"
+                  value="feedbackFocus"
+                />
+                <label for="feedbackFocus">Feedback</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="personalCheckins"
+                  name="oneOnOneFocus"
+                  value="personalCheckins"
+                />
+                <label for="personalCheckins">Personal check-ins</label>
+              </div>
+            </div>
+            <textarea
+              name="oneOnOneOther"
+              rows="2"
+              placeholder="Other topics..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you prefer to escalate problems or ask for help?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="escalateSlack"
+                  name="escalation"
+                  value="slack"
+                />
+                <label for="escalateSlack">Slack/chat</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="escalateEmail"
+                  name="escalation"
+                  value="email"
+                />
+                <label for="escalateEmail">Email</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="escalateInPerson"
+                  name="escalation"
+                  value="inPerson"
+                />
+                <label for="escalateInPerson">In-person</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="escalateOneOnOne"
+                  name="escalation"
+                  value="oneOnOne"
+                />
+                <label for="escalateOneOnOne">During 1:1s</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="escalateImmediate"
+                  name="escalation"
+                  value="immediate"
+                />
+                <label for="escalateImmediate">As soon as issues arise</label>
+              </div>
+            </div>
+            <textarea
+              name="escalationOther"
+              rows="2"
+              placeholder="Additional preferences..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you like to be recognized for good work?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="publicRecognition"
+                  name="recognition"
+                  value="public"
+                />
+                <label for="publicRecognition">Public recognition</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="privateRecognition"
+                  name="recognition"
+                  value="private"
+                />
+                <label for="privateRecognition">Private acknowledgment</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="writtenFeedback"
+                  name="recognition"
+                  value="written"
+                />
+                <label for="writtenFeedback">Written feedback</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="verbalPraise"
+                  name="recognition"
+                  value="verbal"
+                />
+                <label for="verbalPraise">Verbal praise</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="growthOpportunities"
+                  name="recognition"
+                  value="growth"
+                />
+                <label for="growthOpportunities">Growth opportunities</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What type of feedback is most useful to you?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="specificExamples"
+                  name="feedbackType"
+                  value="specific"
+                />
+                <label for="specificExamples">Specific examples</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="actionableSuggestions"
+                  name="feedbackType"
+                  value="actionable"
+                />
+                <label for="actionableSuggestions"
+                  >Actionable suggestions</label
+                >
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="regularCheckins"
+                  name="feedbackType"
+                  value="regular"
+                />
+                <label for="regularCheckins">Regular check-ins</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="formalReviews"
+                  name="feedbackType"
+                  value="formal"
+                />
+                <label for="formalReviews">Formal reviews</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="peerFeedback"
+                  name="feedbackType"
+                  value="peer"
+                />
+                <label for="peerFeedback">Peer feedback</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >How do you prefer to discuss performance and career
+              growth?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="regularOneOnOnes"
+                  name="performanceDiscussion"
+                  value="regularOneOnOnes"
+                />
+                <label for="regularOneOnOnes">Regular 1:1s</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="quarterlyReviews"
+                  name="performanceDiscussion"
+                  value="quarterly"
+                />
+                <label for="quarterlyReviews">Quarterly reviews</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="projectRetros"
+                  name="performanceDiscussion"
+                  value="retros"
+                />
+                <label for="projectRetros">Project retrospectives</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="informalConversations"
+                  name="performanceDiscussion"
+                  value="informal"
+                />
+                <label for="informalConversations"
+                  >Informal conversations</label
+                >
+              </div>
+            </div>
+            <textarea
+              name="performanceDiscussionDetails"
+              rows="2"
+              placeholder="Additional details..."
+            ></textarea>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Next: Goals & Aspirations →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 6: Goals & Aspirations -->
+        <div class="tab-content">
+          <h2 class="section-title">Goals & Aspirations</h2>
+          <p class="section-description">
+            Share your short-term and long-term professional goals with us.
+          </p>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What would you like to accomplish in your first few months
+              working together?</label
+            >
+            <textarea name="shortTermGoals" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are there any immediate challenges or concerns I should know
+              about?</label
+            >
+            <textarea name="immediateChallenges" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What success metrics matter most to you?</label
+            >
+            <textarea name="successMetrics" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Where do you want to be professionally in 2-3 years?</label
+            >
+            <textarea name="longTermVision" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What skills or experiences do you want to gain?</label
+            >
+            <textarea name="skillsToGain" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Are you interested in leadership, technical specialization, or
+              other career paths?</label
+            >
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="leadership"
+                  name="careerPath"
+                  value="leadership"
+                />
+                <label for="leadership">Leadership/Management</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="technical"
+                  name="careerPath"
+                  value="technical"
+                />
+                <label for="technical">Technical specialization</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="productMgmt"
+                  name="careerPath"
+                  value="product"
+                />
+                <label for="productMgmt">Product management</label>
+              </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="architecture"
+                  name="careerPath"
+                  value="architecture"
+                />
+                <label for="architecture">Architecture</label>
+              </div>
+            </div>
+            <input
+              type="text"
+              name="careerPathOther"
+              placeholder="Other (please specify)..."
+            />
+            <textarea
+              name="careerPathDetails"
+              rows="2"
+              placeholder="Additional details..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >Is there anything else you'd like me to know about you or your
+              work style?</label
+            >
+            <textarea name="additionalInfo" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What questions do you have for me about my management
+              approach?</label
+            >
+            <textarea name="questionsForManager" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="question-label"
+              >What are you hoping for from our working relationship?</label
+            >
+            <textarea name="workingRelationshipHopes" rows="3"></textarea>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextTab()">
+              Complete Questionnaire →
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 7: Complete -->
+        <div class="tab-content">
+          <h2 class="section-title">Complete Your Questionnaire</h2>
+          <p class="section-description">
+            Review your responses and submit the questionnaire.
+          </p>
+
+          <div class="instructions-box">
+            <h3>Instructions for Completion</h3>
+            <ul>
+              <li>Please be as candid as possible in your responses</li>
+              <li>
+                Feel free to elaborate on any answers where you have additional
+                context
+              </li>
+              <li>We'll discuss your responses in our first 1:1 meeting</li>
+              <li>
+                This information will help me tailor my management approach to
+                work best for you
+              </li>
+            </ul>
+          </div>
+
+          <div class="completion-section">
+            <div class="form-group">
+              <label class="question-label" for="completedBy"
+                >Completed by:</label
+              >
+              <input type="text" id="completedBy" name="completedBy" />
+            </div>
+            <div class="form-group">
+              <label class="question-label" for="completionDate">Date:</label>
+              <input type="date" id="completionDate" name="completionDate" />
+            </div>
+
+            <div style="margin-top: 30px">
+              <button type="submit" class="btn btn-success">
+                🗂️ Download JSON File
+              </button>
+            </div>
+            <p style="margin-top: 15px; color: #7f8c8d">
+              Your responses will be compiled into a Word document for easy
+              sharing and discussion.
+            </p>
+          </div>
+
+          <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" onclick="prevTab()">
+              ← Previous
+            </button>
+            <div></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.4.0/html-docx.min.js"></script>
+    <script>
+      let currentTab = 0;
+      const totalTabs = 8;
+
+      function showTab(tabIndex) {
+        // Hide all tab contents
+        const tabContents = document.querySelectorAll(".tab-content");
+        const tabs = document.querySelectorAll(".tab");
+
+        tabContents.forEach((content) => content.classList.remove("active"));
+        tabs.forEach((tab) => tab.classList.remove("active"));
+
+        // Show selected tab
+        tabContents[tabIndex].classList.add("active");
+        tabs[tabIndex].classList.add("active");
+
+        currentTab = tabIndex;
+        updateProgressBar();
+      }
+
+      function nextTab() {
+        if (currentTab < totalTabs - 1) {
+          showTab(currentTab + 1);
+        }
+      }
+
+      function prevTab() {
+        if (currentTab > 0) {
+          showTab(currentTab - 1);
+        }
+      }
+
+      function updateProgressBar() {
+        const progress = ((currentTab + 1) / totalTabs) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+      }
+
+      // Auto-populate dates
+      document.getElementById("date").valueAsDate = new Date();
+      document.getElementById("completionDate").valueAsDate = new Date();
+
+      // Form submission
+      document
+        .getElementById("transitionForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          downloadJSON();
+        });
+
+      function downloadJSON() {
+        const formData = new FormData(
+          document.getElementById("transitionForm"),
+        );
+        const data = {};
+
+        for (let [key, value] of formData.entries()) {
+          if (data[key]) {
+            if (Array.isArray(data[key])) {
+              data[key].push(value);
+            } else {
+              data[key] = [data[key], value];
+            }
+          } else {
+            data[key] = value;
+          }
+        }
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `transition_response_${data.employeeName || "anonymous"}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        alert("✅ Your responses have been downloaded as a JSON file.");
+      }
+
+      function generateWordDocument() {
+        const formData = new FormData(
+          document.getElementById("transitionForm"),
+        );
+        const data = {};
+
+        // Collect form data
+        for (let [key, value] of formData.entries()) {
+          if (data[key]) {
+            if (Array.isArray(data[key])) {
+              data[key].push(value);
+            } else {
+              data[key] = [data[key], value];
+            }
+          } else {
+            data[key] = value;
+          }
+        }
+
+        // Create HTML content for Word document
+        let htmlContent = `
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
+                        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+                        h2 { color: #34495e; margin-top: 30px; background-color: #ecf0f1; padding: 10px; border-left: 4px solid #3498db; }
+                        h3 { color: #2c3e50; margin-top: 20px; }
+                        .header-info { background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+                        .question { margin-bottom: 20px; }
+                        .question-title { font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
+                        .answer { margin-left: 20px; margin-bottom: 10px; }
+                        .checkbox-list { margin-left: 20px; }
+                        ul { margin-left: 20px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Engineering Team Transition Questionnaire</h1>
+                    
+                    <div class="header-info">
+                        <p><strong>Employee Name:</strong> ${data.employeeName || "Not specified"}</p>
+                        <p><strong>Date:</strong> ${data.date || "Not specified"}</p>
+                        <p><strong>Department:</strong> ${data.department || "Not specified"}</p>
+                        <p><strong>New Manager:</strong> ${data.newManager || "Not specified"}</p>
+                    </div>
+
+                    <h2>Motivation & Work Style</h2>
+            `;
+
+        // Add all questions and answers
+        const questions = {
+          excitingWork: "What type of work or projects get you most excited?",
+          motivation: "What motivates you to do your best work?",
+          productive: "When do you feel most productive and engaged?",
+          workStyle: "Do you prefer working independently or collaboratively?",
+          workStyleExplain: "Explanation of work style preference:",
+          feedbackFreq: "How do you like to receive feedback and how often?",
+          feedbackStyle: "Preferred feedback style:",
+          commStyle: "Preferred communication style:",
+          commStyleOther: "Other communication style:",
+          taskType: "Task preference (structured vs open-ended):",
+          taskTypeDetails: "Additional task preference details:",
+          learningStyle:
+            "How do you prefer to learn new skills or technologies?",
+          profDev: "Professional development opportunities of interest:",
+          certifications: "Conferences, courses, or certifications to pursue:",
+          teamAppreciate:
+            "What you appreciate most about working with this team:",
+          teamCollaboration: "Team collaboration aspects that work well:",
+          teamFrustrations: "Team processes or dynamics that frustrate you:",
+          collaboration: "How you prefer to collaborate on projects:",
+          collaborationOther: "Other collaboration preferences:",
+          valuableMeetings: "What makes meetings valuable:",
+          wastefulMeetings: "What makes meetings wasteful:",
+          stayInformed: "How you like to stay informed about team progress:",
+          stayInformedOther: "Additional information preferences:",
+          teamChange: "One thing to change about how the team works together:",
+          teamKeep: "Team traditions or practices to keep:",
+          teamMissing: "Skills or perspectives the team is missing:",
+          companyCulture: "Company culture aspects you value most:",
+          companyPolicies: "Company policies or practices that work well:",
+          orgChanges: "Organizational changes you'd like to see:",
+          crossTeamInteraction: "How you interact with other teams:",
+          crossFunctionalGood: "Cross-functional relationships that work well:",
+          orgFriction: "Organizational silos or friction points:",
+          resources: "Do you have the tools and resources needed?",
+          additionalSupport: "Additional support that would help:",
+          devProcessSatisfaction: "Satisfaction with development processes:",
+          devProcessComments: "Comments on development processes:",
+          personalInterests: "What you enjoy doing outside of work:",
+          relatedInterests: "Personal interests related to professional work:",
+          workLifeBalance: "What helps you maintain work-life balance:",
+          workLocation: "Work location preference:",
+          idealEnvironment: "Your ideal work environment:",
+          accommodations: "Accommodations that help you work effectively:",
+          managementStyles: "Management styles that have worked best:",
+          previousManagerGood:
+            "What your previous manager did that was helpful:",
+          managementDislikes: "Management approaches that don't work well:",
+          dailySupport: "How manager can best support your day-to-day work:",
+          oneOnOneFocus: "What to focus on in 1:1 meetings:",
+          oneOnOneOther: "Other 1:1 meeting topics:",
+          escalation: "How you prefer to escalate problems or ask for help:",
+          escalationOther: "Additional escalation preferences:",
+          recognition: "How you like to be recognized for good work:",
+          feedbackType: "What type of feedback is most useful:",
+          performanceDiscussion:
+            "How you prefer to discuss performance and career growth:",
+          performanceDiscussionDetails:
+            "Additional performance discussion details:",
+          shortTermGoals:
+            "What you'd like to accomplish in the first few months:",
+          immediateChallenges: "Immediate challenges or concerns:",
+          successMetrics: "Success metrics that matter most to you:",
+          longTermVision: "Where you want to be professionally in 2-3 years:",
+          skillsToGain: "Skills or experiences you want to gain:",
+          careerPath: "Career path interests:",
+          careerPathOther: "Other career path:",
+          careerPathDetails: "Additional career path details:",
+          additionalInfo: "Additional information about work style:",
+          questionsForManager: "Questions about management approach:",
+          workingRelationshipHopes: "Hopes for the working relationship:",
+        };
+
+        for (let [key, question] of Object.entries(questions)) {
+          if (data[key] && data[key].toString().trim()) {
+            let answer = data[key];
+            if (Array.isArray(answer)) {
+              answer = answer.join(", ");
+            }
+            htmlContent += `
+                        <div class="question">
+                            <div class="question-title">${question}</div>
+                            <div class="answer">${answer}</div>
+                        </div>
+                    `;
+          }
+        }
+
+        htmlContent += `
+                    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px;">
+                        <p><strong>Completed by:</strong> ${data.completedBy || "Not specified"}</p>
+                        <p><strong>Completion Date:</strong> ${data.completionDate || "Not specified"}</p>
+                    </div>
+                </body>
+                </html>
+            `;
+
+        // Generate and download Word document
+        const converted = htmlDocx.asBlob(htmlContent);
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(converted);
+        link.download = `transition_questionnaire_${data.employeeName || "response"}_${new Date().toISOString().split("T")[0]}.docx`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+
+        alert(
+          "✅ Word document has been generated and downloaded successfully!",
+        );
+      }
+
+      // Initialize
+      updateProgressBar();
+    </script>
+  </body>
+</html>
