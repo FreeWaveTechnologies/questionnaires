@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Engineering Team Transition Questionnaire</title>
+    <title>FreeWave Engineering Team Transition Questionnaire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       * {
         box-sizing: border-box;
@@ -12,7 +13,7 @@
       }
 
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         line-height: 1.6;
         color: #333;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -353,7 +354,7 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>Engineering Team Transition Questionnaire</h1>
+        <h1>FreeWave Engineering Team Transition Questionnaire</h1>
         <p>Building better working relationships through understanding</p>
       </div>
 
@@ -1705,12 +1706,11 @@
 
             <div style="margin-top: 30px">
               <button type="submit" class="btn btn-success">
-                🗂️ Download JSON File
+                📄 Download JSON File
               </button>
             </div>
             <p style="margin-top: 15px; color: #7f8c8d">
-              Your responses will be compiled into a Word document for easy
-              sharing and discussion.
+              Your responses will be saved as a JSON file for easy sharing and discussion.
             </p>
           </div>
 
@@ -1724,7 +1724,6 @@
       </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.4.0/html-docx.min.js"></script>
     <script>
       let currentTab = 0;
       const totalTabs = 8;
@@ -1805,170 +1804,6 @@
         URL.revokeObjectURL(url);
 
         alert("✅ Your responses have been downloaded as a JSON file.");
-      }
-
-      function generateWordDocument() {
-        const formData = new FormData(
-          document.getElementById("transitionForm"),
-        );
-        const data = {};
-
-        // Collect form data
-        for (let [key, value] of formData.entries()) {
-          if (data[key]) {
-            if (Array.isArray(data[key])) {
-              data[key].push(value);
-            } else {
-              data[key] = [data[key], value];
-            }
-          } else {
-            data[key] = value;
-          }
-        }
-
-        // Create HTML content for Word document
-        let htmlContent = `
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <style>
-                        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
-                        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
-                        h2 { color: #34495e; margin-top: 30px; background-color: #ecf0f1; padding: 10px; border-left: 4px solid #3498db; }
-                        h3 { color: #2c3e50; margin-top: 20px; }
-                        .header-info { background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
-                        .question { margin-bottom: 20px; }
-                        .question-title { font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
-                        .answer { margin-left: 20px; margin-bottom: 10px; }
-                        .checkbox-list { margin-left: 20px; }
-                        ul { margin-left: 20px; }
-                    </style>
-                </head>
-                <body>
-                    <h1>Engineering Team Transition Questionnaire</h1>
-                    
-                    <div class="header-info">
-                        <p><strong>Employee Name:</strong> ${data.employeeName || "Not specified"}</p>
-                        <p><strong>Date:</strong> ${data.date || "Not specified"}</p>
-                        <p><strong>Department:</strong> ${data.department || "Not specified"}</p>
-                        <p><strong>New Manager:</strong> ${data.newManager || "Not specified"}</p>
-                    </div>
-
-                    <h2>Motivation & Work Style</h2>
-            `;
-
-        // Add all questions and answers
-        const questions = {
-          excitingWork: "What type of work or projects get you most excited?",
-          motivation: "What motivates you to do your best work?",
-          productive: "When do you feel most productive and engaged?",
-          workStyle: "Do you prefer working independently or collaboratively?",
-          workStyleExplain: "Explanation of work style preference:",
-          feedbackFreq: "How do you like to receive feedback and how often?",
-          feedbackStyle: "Preferred feedback style:",
-          commStyle: "Preferred communication style:",
-          commStyleOther: "Other communication style:",
-          taskType: "Task preference (structured vs open-ended):",
-          taskTypeDetails: "Additional task preference details:",
-          learningStyle:
-            "How do you prefer to learn new skills or technologies?",
-          profDev: "Professional development opportunities of interest:",
-          certifications: "Conferences, courses, or certifications to pursue:",
-          teamAppreciate:
-            "What you appreciate most about working with this team:",
-          teamCollaboration: "Team collaboration aspects that work well:",
-          teamFrustrations: "Team processes or dynamics that frustrate you:",
-          collaboration: "How you prefer to collaborate on projects:",
-          collaborationOther: "Other collaboration preferences:",
-          valuableMeetings: "What makes meetings valuable:",
-          wastefulMeetings: "What makes meetings wasteful:",
-          stayInformed: "How you like to stay informed about team progress:",
-          stayInformedOther: "Additional information preferences:",
-          teamChange: "One thing to change about how the team works together:",
-          teamKeep: "Team traditions or practices to keep:",
-          teamMissing: "Skills or perspectives the team is missing:",
-          companyCulture: "Company culture aspects you value most:",
-          companyPolicies: "Company policies or practices that work well:",
-          orgChanges: "Organizational changes you'd like to see:",
-          crossTeamInteraction: "How you interact with other teams:",
-          crossFunctionalGood: "Cross-functional relationships that work well:",
-          orgFriction: "Organizational silos or friction points:",
-          resources: "Do you have the tools and resources needed?",
-          additionalSupport: "Additional support that would help:",
-          devProcessSatisfaction: "Satisfaction with development processes:",
-          devProcessComments: "Comments on development processes:",
-          personalInterests: "What you enjoy doing outside of work:",
-          relatedInterests: "Personal interests related to professional work:",
-          workLifeBalance: "What helps you maintain work-life balance:",
-          workLocation: "Work location preference:",
-          idealEnvironment: "Your ideal work environment:",
-          accommodations: "Accommodations that help you work effectively:",
-          managementStyles: "Management styles that have worked best:",
-          previousManagerGood:
-            "What your previous manager did that was helpful:",
-          managementDislikes: "Management approaches that don't work well:",
-          dailySupport: "How manager can best support your day-to-day work:",
-          oneOnOneFocus: "What to focus on in 1:1 meetings:",
-          oneOnOneOther: "Other 1:1 meeting topics:",
-          escalation: "How you prefer to escalate problems or ask for help:",
-          escalationOther: "Additional escalation preferences:",
-          recognition: "How you like to be recognized for good work:",
-          feedbackType: "What type of feedback is most useful:",
-          performanceDiscussion:
-            "How you prefer to discuss performance and career growth:",
-          performanceDiscussionDetails:
-            "Additional performance discussion details:",
-          shortTermGoals:
-            "What you'd like to accomplish in the first few months:",
-          immediateChallenges: "Immediate challenges or concerns:",
-          successMetrics: "Success metrics that matter most to you:",
-          longTermVision: "Where you want to be professionally in 2-3 years:",
-          skillsToGain: "Skills or experiences you want to gain:",
-          careerPath: "Career path interests:",
-          careerPathOther: "Other career path:",
-          careerPathDetails: "Additional career path details:",
-          additionalInfo: "Additional information about work style:",
-          questionsForManager: "Questions about management approach:",
-          workingRelationshipHopes: "Hopes for the working relationship:",
-        };
-
-        for (let [key, question] of Object.entries(questions)) {
-          if (data[key] && data[key].toString().trim()) {
-            let answer = data[key];
-            if (Array.isArray(answer)) {
-              answer = answer.join(", ");
-            }
-            htmlContent += `
-                        <div class="question">
-                            <div class="question-title">${question}</div>
-                            <div class="answer">${answer}</div>
-                        </div>
-                    `;
-          }
-        }
-
-        htmlContent += `
-                    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px;">
-                        <p><strong>Completed by:</strong> ${data.completedBy || "Not specified"}</p>
-                        <p><strong>Completion Date:</strong> ${data.completionDate || "Not specified"}</p>
-                    </div>
-                </body>
-                </html>
-            `;
-
-        // Generate and download Word document
-        const converted = htmlDocx.asBlob(htmlContent);
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(converted);
-        link.download = `transition_questionnaire_${data.employeeName || "response"}_${new Date().toISOString().split("T")[0]}.docx`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-
-        alert(
-          "✅ Word document has been generated and downloaded successfully!",
-        );
       }
 
       // Initialize
